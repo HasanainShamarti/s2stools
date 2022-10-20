@@ -44,7 +44,7 @@ def open_files(cf=None, pf=None, chc=None, phc=None, path_pattern=None):
     print("realtime path: ", valid_rt)
     onefile_path = glob.glob(valid_rt)[0]
     onefile_ds = xr.open_dataset(onefile_path)
-    lt = (onefile_ds.time.values - onefile_ds.time.values[0]).astype("timedelta64[h]")
+    lt = (onefile_ds.time.values - onefile_ds.time.values[0].astype("datetime64[D]")).astype("timedelta64[h]")
     if (lt.astype("int") % 24).max() == 0:
         # lead time is given in daily resolution
         lt = lt.astype("timedelta64[D]")
